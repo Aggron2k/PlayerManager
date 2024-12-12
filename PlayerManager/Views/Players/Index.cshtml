@@ -1,0 +1,98 @@
+﻿@model IEnumerable<PlayerManager.Models.Player>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<div>
+    <form asp-action="Index" method="get">
+        <div>
+            <span>
+                <label>@Html.DisplayNameFor(model => model.Position)</label>
+                <select name="PositionFilter" asp-items="Html.GetEnumSelectList<Position>()">
+                    <option value=""></option>
+                </select>
+            </span>
+            <span>
+                <label>@Html.DisplayNameFor(model => model.Name)</label>
+                <input name="NameFilter" class="control" />
+            </span>
+            <span>
+                <label>@Html.DisplayNameFor(model => model.Retired)</label>
+                <select name="RetiredFilter">
+                    <option value=""></option>
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                </select>
+            </span>
+            <span>
+                <input type="submit" value="Filter" class="btn btn-primary" />
+            </span>
+        </div>
+    </form>
+</div>
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+                <a asp-controller="Players" asp-action="Index" asp-route-SortOrder="up">&#x25B2;</a>
+                <a asp-action="Index" asp-route-SortOrder="down">&#x25BC;</a>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Age)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Position)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Retired)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ContractExp)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReferencedTeam)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Age)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Position)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Retired)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ContractExp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReferencedTeam.TeamName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

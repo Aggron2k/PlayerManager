@@ -1,0 +1,51 @@
+﻿@model PlayerManager.Models.Team
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Team</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TeamName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TeamName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Country)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Country)
+        </dd>
+
+        <dt class="col-sm-2">
+            Players
+        </dt>
+        <dd class="col-sm-10">
+            @if ((ViewData["TeamPlayers"] as List<Player>).Any())
+            {
+                @foreach (var player in ViewData["TeamPlayers"] as List<Player>)
+                {
+                    <a asp-controller="Players" asp-action="Details"
+                    asp-route-id="@player.Id">@player.Name</a> <br />
+                }
+            }
+            else
+            {
+                    <span>No player in the club</span>
+            }
+        </dd>
+
+
+        
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
